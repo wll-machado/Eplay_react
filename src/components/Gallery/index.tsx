@@ -1,18 +1,16 @@
-import React from 'react'
+import React, { useState } from 'react'
 import Section from '../Section'
 import marvel1 from '../../assets/marvel1.jpg'
 import marvel2 from '../../assets/marvel2.jpg'
 import marvel3 from '../../assets/marvel3.jpg'
 import marvel4 from '../../assets/marvel4.webp'
-var marvel5 = 'https://www.youtube.com/shorts/eeRMSYsu6Hs?feature=share'
+var marvel5 = 'https://www.youtube.com/embed/G7c_Fc87WkU?si=Otkanquvg7zTewnV'
 import zoom from '../../assets/zoom.png'
 import play from '../../assets/play.png'
 import { Action, Item, Items, Modal, ModalContent } from './styled'
+import { GalleryItem } from '../../Pages/Home'
 
-type GalleryItem = {
-  type: 'image' | 'video'
-  url: string
-}
+
 
 const mock: GalleryItem[] = [
   {
@@ -42,7 +40,16 @@ type Props = {
   defaultCover: string
 }
 
+interface ModalState extends GalleryItem {
+  isVisible: boolean
+}
+
 const Gallery = ({name,defaultCover}: Props) => {
+  const [modal, setModal] = useState<ModalState>({
+    isVisible: false,
+    type: 'image',
+    url: ''
+  })
 
   const getMediaCover = (item: GalleryItem) => {
     if(item.type === 'image') return item.url
@@ -54,12 +61,21 @@ const Gallery = ({name,defaultCover}: Props) => {
     return play
   }
 
+  const closeModal = () => {
+    setModal({isVisible: false,
+      type: 'image',
+      url: ''})
+  }
+
   return (
     <>
       <Section title='Galeria' background='black'>
         <Items>
          {mock.map(media =>
-             <Item key={media.url}>
+             <Item key={media.url} onClick={() => {
+              setModal({isVisible: true,
+              type: media.type,
+              url: media.url})}}>
              <img src={getMediaCover(media)} alt={`${media.type} do jogo`} />
              <Action>
                <img src={getMediaIcon(media)} alt="ampliar imagem" />
@@ -69,15 +85,24 @@ const Gallery = ({name,defaultCover}: Props) => {
 
         </Items>
       </Section>
-      <Modal>
+      <Modal className={modal.isVisible ? 'visivel' : ''}>
         <ModalContent className='container'>
           <header>
           <h4>{name}</h4>
-          <span>X</span>
+          <span onClick={() =>
+           closeModal()
+          }>X</span>
           </header>
-          <img src={defaultCover} alt="" />
+          {
+            modal.type === 'image' ? (
+              <img src={modal.url} alt="Game Image" />
+            ):
+            (
+              <iframe src={modal.url} title='video'></iframe>
+            )
+          }
         </ModalContent>
-        <div className="overlay"></div>
+        <div className="overlay" onClick={() => closeModal()}></div>
       </Modal>
     </>
   )

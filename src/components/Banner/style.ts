@@ -2,14 +2,24 @@ import styled from "styled-components";
 import { TagContainer } from "../Tag/style";
 
 export const Imagem = styled.div`
+position: relative;
 width: 100%;
 height: 560px;
 display: block;
 padding-top: 360px;
 
+&::after {
+  position: absolute;
+  background-color: rgba(0, 0, 0, 0.43);
+  width: 100%;
+  height: 560px;
+  top: 0;
+  left: 0;
+  content: '';
+ }
 background-repeat: no-repeat;
 background-size: cover;
-background-position: bottom center;
+background-position: top center;
 
 ${TagContainer}{
 
@@ -21,11 +31,13 @@ ${TagContainer}{
   max-width: 1024px;
  width: 100%;
  margin: 0 auto;
-
+ z-index: 1;
  display: flex;
  justify-content: space-between;
  align-items: flex-end;
  }
+
+
 `
 
 export const Titulo = styled.h2`

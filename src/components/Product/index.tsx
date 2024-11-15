@@ -13,6 +13,14 @@ type Props = {
 }
 
 const Product = ({category,description,infos,image,title,system}: Props) => {
+
+  const getDescription = (description:string) => {
+    if(description.length > 95){
+      return description.slice(0,92) + '...'
+    }
+    return description
+  }
+
   return (
     <Card>
       <img src={image} alt={title}/>
@@ -23,7 +31,7 @@ const Product = ({category,description,infos,image,title,system}: Props) => {
       <Tag>{category}</Tag>
       <Tag>{system}</Tag>
       <Descricao>
-       {description}
+       {getDescription(description)}
       </Descricao>
     </Card>
   )

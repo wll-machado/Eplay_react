@@ -7,8 +7,9 @@ background-color: ${cores.cinza};
 border-radius: 8px;
 padding: 8px;
 img{
-  width: 222px;
+  width: 100%;
   height: 250px;
+  object-fit: cover;
 }
 `
 export const Infos = styled.div`

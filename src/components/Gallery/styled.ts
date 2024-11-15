@@ -1,5 +1,17 @@
-import styled from "styled-components";
+import styled, { keyframes } from "styled-components";
 import { cores } from "../../styles";
+
+const pulse = keyframes`
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.2);
+  }
+  100% {
+    transform: scale(1);
+  }
+`;
 
 export const Items = styled.ul`
 display: flex;
@@ -56,6 +68,7 @@ align-items: center;
 &.visivel{
   display: flex;
 }
+
 .overlay{
   position: absolute;
 top: 0;
@@ -82,11 +95,24 @@ header{
   }
 }
 
+
 span{
   display: block;
+  position: absolute;
+  right: 0;
   width: 1rem;
   font-weight: bold;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  &:hover{
+    color: red;
+    font-weight: bolder;
+    animation: ${pulse} 2s infinite;
+  }
 }
 
-
+img,iframe{
+  width: 650px;
+  height: 450px;
+}
 `

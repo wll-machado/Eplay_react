@@ -23,5 +23,5 @@ max-width: 64rem;
 margin: 0 auto;
 display:grid;
 grid-template-columns: 1fr 1fr 1fr 1fr ;
-column-gap: 24px;
+gap: 24px;
 `
