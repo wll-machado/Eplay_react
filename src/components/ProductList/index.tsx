@@ -3,18 +3,15 @@ import Product from '../Product';
 
 import { Container, List} from './styles';
 import { Game } from '../../Pages/Home';
+import { convertToBrl } from '../../utils';
 
 export type Props = {
   title:string,
-  background: 'gray' | 'black',
+  $background: 'gray' | 'black',
   games: Game[],
 }
 
-export const formataPreco = (preco = 0) => {
-  return new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(preco)
-  }
-
-const ProductList = ({background, title, games}: Props) => {
+const ProductList = ({$background, title, games}: Props) => {
 
 
   const getGameTags = (game: Game)=> {
@@ -29,22 +26,21 @@ const ProductList = ({background, title, games}: Props) => {
     }
 
     if(game.prices.current){
-      tags.push(formataPreco(game.prices.current))
+      tags.push(convertToBrl(game.prices.current))
     }
 
     return tags
   }
 
   return (
-    <Container background={background}>
+    <Container $background={$background}>
       <h2>{title}</h2>
       <List>
         {
           games.map(game=>(
-
-            <>
-              <Product key={game.id} category={game.details.category} description={game.description} image={game.media.thumbnail} infos={getGameTags(game).map(String)} system={game.details.system} title={game.name} />
-            </>
+            <li key={game.id}>
+              <Product id={game.id} category={game.details.category} description={game.description} image={game.media.thumbnail} infos={getGameTags(game).map(String)} system={game.details.system} title={game.name} />
+            </li>
           ))
         }
       </List>

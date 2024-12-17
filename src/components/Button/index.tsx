@@ -1,18 +1,18 @@
 import { ButtonContainer, ButtonLink } from "./styles"
 
 export type Props = {
-  type: 'button' | 'link'
+  type: 'button' | 'link' | 'submit'
   title: string
   to?: string
   onClick?: ()=>void
   children: string
-  variant?: 'primary' | 'secondary'
+  $variant?: 'primary' | 'secondary'
 }
-const Button = ({type, title, children, to,onClick, variant='primary'}: Props) => {
+const Button = ({type, title, children, to,onClick, $variant='primary'}: Props) => {
 
-  if (type === 'button') {
+  if (type === 'button' || type === 'submit') {
   return (
-    <ButtonContainer variant={variant} type="button" title={title} onClick={onClick}>
+    <ButtonContainer $variant={$variant} type={type} title={title} onClick={onClick}>
       {children}
     </ButtonContainer>
   )}

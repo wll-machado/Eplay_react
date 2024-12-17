@@ -14,6 +14,9 @@ background-size: 100%;
 
 padding-top: 16px ;
 
+@media (max-width: 768px) {
+  background-size: cover;
+}
 &::after {
   position: absolute;
   background-color: #000;

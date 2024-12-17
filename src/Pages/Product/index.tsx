@@ -1,29 +1,43 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import Hero from '../../components/Hero'
 import Section from '../../components/Section'
 import Gallery from '../../components/Gallery'
-import defaultCover from '../../assets/marvelCover.jpg'
+import { Game } from '../Home'
+import { useGetGameQuery } from '../../services/api'
 
 const Product = () => {
 
   const {id} = useParams()
 
+  const { data: game } = useGetGameQuery(id!)
+
+  if(!game){
+    return(
+      <h3>Carregando...</h3>
+    )
+  }
+
   return (
     <>
-      <Hero />
-      <Section title='Sobre o jogo' background='black'>
+      <Hero game={game} />
+      <Section title='Sobre o jogo' $background='black'>
         <p>
-          Lorem ipsum dolor sit, amet consectetur adipisicing elit. Amet error pariatur accusantium, nostrum, minus sunt id fugit sit iusto eos quidem ullam libero. Harum nostrum culpa molestiae architecto illum perspiciatis!
+          {game.description}
         </p>
       </Section>
-      <Section title='Mais Detalhes' background='gray'>
+      <Section title='Mais Detalhes' $background='gray'>
         <p>
-          Lorem ipsum dolor sit, amet consectetur adipisicing elit. Amet error pariatur accusantium, nostrum, minus sunt id fugit sit iusto eos quidem ullam libero. Harum nostrum culpa molestiae architecto illum perspiciatis!
-          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptatibus ullam similique vel quisquam facilis, error dicta odit architecto aperiam earum ipsum facere quae ipsam optio amet quia debitis et dolorem.
+          <b>Plataforma: {game.details.system}</b>
+          <br />
+          <b>Desenvolvedor: {game.details.developer}</b>
+          <br />
+          <b>Editora: {game.details.publisher}</b>
+          <br />
+          <b>Idiomas: {game.details.languages.join(', ')}</b>
         </p>
       </Section>
-      <Gallery name='Jogo' defaultCover={defaultCover}/>
+      <Gallery items={game.media.gallery} name={game.name} defaultCover={game.media.cover}/>
     </>
   )
 }

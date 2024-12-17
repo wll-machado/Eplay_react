@@ -29,9 +29,18 @@ body{
 
 `
 
+export const breakpoints = {
+  tablet: '768px',
+  desktop: '1024px'
+}
+
 export const Container = styled.div`
 
  /* max-width: 1024px; */
  width: 100%;
  margin: 0 auto;
+
+ @media (max-width: ${breakpoints.tablet}) {
+   max-width: 80%;
+ }
 `

@@ -1,50 +1,20 @@
-import React, { useState } from 'react'
+import { useState } from 'react'
 import Section from '../Section'
-import marvel1 from '../../assets/marvel1.jpg'
-import marvel2 from '../../assets/marvel2.jpg'
-import marvel3 from '../../assets/marvel3.jpg'
-import marvel4 from '../../assets/marvel4.webp'
-var marvel5 = 'https://www.youtube.com/embed/G7c_Fc87WkU?si=Otkanquvg7zTewnV'
 import zoom from '../../assets/zoom.png'
 import play from '../../assets/play.png'
 import { Action, Item, Items, Modal, ModalContent } from './styled'
 import { GalleryItem } from '../../Pages/Home'
-
-
-
-const mock: GalleryItem[] = [
-  {
-    type: 'image',
-    url: marvel1
-  },
-  {
-    type: 'image',
-    url: marvel2
-  },
-  {
-    type: 'image',
-    url: marvel3
-  },
-  {
-    type: 'image',
-    url: marvel4
-  },
-  {
-    type: 'video',
-    url: marvel5
-  },
-]
-
 type Props = {
   name: string
   defaultCover: string
+  items: GalleryItem[]
 }
 
 interface ModalState extends GalleryItem {
   isVisible: boolean
 }
 
-const Gallery = ({name,defaultCover}: Props) => {
+const Gallery = ({name,defaultCover, items}: Props) => {
   const [modal, setModal] = useState<ModalState>({
     isVisible: false,
     type: 'image',
@@ -69,9 +39,9 @@ const Gallery = ({name,defaultCover}: Props) => {
 
   return (
     <>
-      <Section title='Galeria' background='black'>
+      <Section title='Galeria' $background='black'>
         <Items>
-         {mock.map(media =>
+         {items.map(media =>
              <Item key={media.url} onClick={() => {
               setModal({isVisible: true,
               type: media.type,

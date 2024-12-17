@@ -1,7 +1,7 @@
-import img from '../../assets/zelda.webp'
 import Tag from '../Tag'
 
 import { Card, Descricao, Infos, Titulo } from './styles'
+
 
 type Props = {
   title: string;
@@ -10,9 +10,10 @@ type Props = {
   description: string;
   infos: string[];
   image: string;
+  id: number
 }
 
-const Product = ({category,description,infos,image,title,system}: Props) => {
+const Product = ({category,description,infos,image,title,system,id}: Props) => {
 
   const getDescription = (description:string) => {
     if(description.length > 95){
@@ -21,8 +22,9 @@ const Product = ({category,description,infos,image,title,system}: Props) => {
     return description
   }
 
+
   return (
-    <Card>
+    <Card to={`/product/${id}`} >
       <img src={image} alt={title}/>
       <Infos>
         {infos.map(info=> <Tag key={info}>{info}</Tag>)}
